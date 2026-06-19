@@ -1,29 +1,14 @@
 {
-  "name": "app-parqueaderos",
+  "name": "app-facturacion-pos",
   "version": "1.0.0",
-  "description": "Aplicación de gestión de parqueaderos",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "init-db": "node database/init.js"
-  },
-  "keywords": [
-    "parqueaderos",
-    "parking",
-    "gestión"
-  ],
-  "author": "Tu Nombre",
-  "license": "ISC",
+  "scripts": { "start": "node server.js", "dev": "nodemon server.js" },
   "dependencies": {
-    "bcryptjs": "^3.0.3",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.0.0",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.3",
+    "jsonwebtoken": "^9.0.0",
     "sqlite3": "^5.1.6"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
   }
 }
