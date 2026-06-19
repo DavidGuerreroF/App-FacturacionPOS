@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - POS Facturación</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-user-plus"></i>
+                <h1>Crear Cuenta</h1>
+                <p>Únete a nuestro sistema POS</p>
+            </div>
+
+            <form id="registroForm" class="login-form">
+                <div class="form-group">
+                    <label for="nombre">
+                        <i class="fas fa-user"></i> Nombre Completo
+                    </label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Contraseña
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordConfirm">
+                        <i class="fas fa-lock"></i> Confirmar Contraseña
+                    </label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Crear Cuenta
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>¿Ya tienes cuenta? <a href="/login.html">Inicia sesión aquí</a></p>
+            </div>
+
+            <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+            <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+</body>
+</html>

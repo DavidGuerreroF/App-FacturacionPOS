@@ -1,36 +1,11 @@
-const router =
-require("express")
-.Router();
+const express = require('express');
+const router = express.Router();
+const clientesController = require('../controllers/clientesController');
 
-const c =
-require(
-"../controllers/clienteController"
-);
+router.get('/', clientesController.obtenerTodos);
+router.get('/:id', clientesController.obtenerPorId);
+router.post('/', clientesController.crear);
+router.put('/:id', clientesController.actualizar);
+router.post('/:id/desactivar', clientesController.desactivar);
 
-router.get(
-"/",
-c.listar
-);
-
-router.get(
-"/:id",
-c.buscar
-);
-
-router.post(
-"/",
-c.crear
-);
-
-router.put(
-"/:id",
-c.actualizar
-);
-
-router.delete(
-"/:id",
-c.eliminar
-);
-
-module.exports=
-router;
+module.exports = router;

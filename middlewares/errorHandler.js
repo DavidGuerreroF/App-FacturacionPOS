@@ -1,20 +1,16 @@
-// ============= MIDDLEWARE DE MANEJO DE ERRORES =============
-
+/**
+ * Middleware de manejo de errores global
+ */
 const errorHandler = (err, req, res, next) => {
-    console.error('❌ Error:', err);
+  console.error('❌ Error:', err);
 
-    // Error de sintaxis JSON
-    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-        return res.status(400).json({
-            error: 'JSON inválido en el request'
-        });
-    }
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Error interno del servidor';
 
-    // Error genérico
-    res.status(err.status || 500).json({
-        error: err.message || 'Error interno del servidor',
-        timestamp: new Date().toISOString()
-    });
+  res.status(statusCode).json({
+    error: message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+  });
 };
 
 module.exports = errorHandler;

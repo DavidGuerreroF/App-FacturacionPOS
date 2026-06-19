@@ -1,31 +1,9 @@
-const router =
-require("express")
-.Router();
+const express = require('express');
+const router = express.Router();
+const inventarioController = require('../controllers/inventarioController');
 
-const c =
-require(
-"../controllers/inventarioController"
-);
+router.get('/movimientos', inventarioController.obtenerMovimientos);
+router.post('/movimientos', inventarioController.crearMovimiento);
+router.get('/reporte', inventarioController.obtenerReporte);
 
-router.get(
-"/",
-c.listar
-);
-
-router.post(
-"/",
-c.crear
-);
-
-router.put(
-"/:id",
-c.actualizar
-);
-
-router.delete(
-"/:id",
-c.eliminar
-);
-
-module.exports=
-router;
+module.exports = router;

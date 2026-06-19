@@ -1,24 +1,26 @@
-const probarConexion =
-require("./connection");
+require("dotenv").config();
+const supabase = require('../config/supabase');
 
-async function iniciar() {
+const initDatabase = async () => {
+  try {
+    // Verificar conexión a Supabase
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select('count()', { count: 'exact', head: true });
 
-const ok =
-await probarConexion();
+    if (error) {
+      console.log('Creando tablas en Supabase...');
+      // Las tablas deben crearse desde el dashboard de Supabase
+      // Este es solo un verificador de conexión
+      console.log('⚠️  Por favor, crea las tablas en Supabase según el schema.sql');
+      return;
+    }
 
-if(!ok){
+    console.log('✅ Conexión a Supabase establecida correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar base de datos:', error);
+    throw error;
+  }
+};
 
-throw new Error(
-"No conecta BD"
-);
-
-}
-
-console.log(
-"Base lista"
-);
-
-}
-
-module.exports =
-iniciar;
+module.exports = initDatabase;

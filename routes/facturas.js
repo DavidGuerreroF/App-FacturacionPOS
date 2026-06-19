@@ -1,16 +1,11 @@
-const router =
-require("express")
-.Router();
+const express = require('express');
+const router = express.Router();
+const facturasController = require('../controllers/facturasController');
 
-const f =
-require(
-"../controllers/facturaController"
-);
+router.get('/', facturasController.obtenerTodas);
+router.get('/:id', facturasController.obtenerPorId);
+router.post('/', facturasController.crear);
+router.put('/:id/estado', facturasController.actualizarEstado);
+router.post('/:id/cancelar', facturasController.cancelar);
 
-router.post(
-"/",
-f.crear
-);
-
-module.exports=
-router;
+module.exports = router;

@@ -1,37 +1,30 @@
-const jwt = require('jsonwebtoken');
+const supabase = require('../config/supabase');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_super_seguro';
+/**
+ * Middleware de autenticación por JWT
+ * Verifica que el usuario esté autenticado
+ */
+const authMiddleware = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
 
-// ============= MIDDLEWARE DE AUTENTICACIÓN =============
-const verificarToken = (req, res, next) => {
-    try {
-        const token = req.headers.authorization?.split(' ')[1];
-
-        if (!token) {
-            return res.status(401).json({ error: 'Token no proporcionado' });
-        }
-
-        const decoded = jwt.verify(token, JWT_SECRET);
-        req.usuario = decoded;
-        
-        console.log('✅ Token válido para:', decoded.email);
-        next();
-
-    } catch (error) {
-        console.error('❌ Token inválido:', error.message);
-        res.status(401).json({ error: 'Token inválido o expirado' });
+    if (!token) {
+      return res.status(401).json({ error: 'Token no proporcionado' });
     }
-};
 
-// ============= MIDDLEWARE DE AUTORIZACIÓN (Solo admin) =============
-const esAdmin = (req, res, next) => {
-    if (req.usuario.rol !== 'admin') {
-        return res.status(403).json({ error: 'Acceso denegado. Solo administradores' });
+    // Verificar token con Supabase
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return res.status(401).json({ error: 'Token inválido o expirado' });
     }
+
+    req.user = user;
     next();
+  } catch (error) {
+    console.error('Error en autenticación:', error);
+    res.status(500).json({ error: 'Error al verificar autenticación' });
+  }
 };
 
-module.exports = {
-    verificarToken,
-    esAdmin
-};
+module.exports = authMiddleware;
